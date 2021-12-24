@@ -3,9 +3,9 @@ public class HelloNumbers {
         int x = 0;
         int sum = 0;
         while (x < 10) {
-            sum = sum + x;
+            sum = sum + x ;
             System.out.print(sum + " ");
-            x = x + 1;
+            x = x + 1 ;
         }
     }
 }
