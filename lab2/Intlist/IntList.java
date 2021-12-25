@@ -85,10 +85,19 @@ public class IntList {
         if (A == null && B == null){
             return null;
         }
-        while(A.rest != null){
-            A = A.rest;
+        if (B == null){
+            return A;
         }
-        A.rest = B;
+        if (A == null){
+            return B;
+        }
+
+        IntList L = A;
+        while(L.rest != null){
+            L = L.rest;
+        }
+        L.rest = B;
+
         return A;
     }
 
@@ -102,21 +111,30 @@ public class IntList {
         if (A == null && B == null){
             return null;
         }
-        IntList res = new IntList(A.first, A.rest);
-        IntList ptr = res;
-        A = A.rest;
-        while (A != null){
-            ptr.rest = new IntList(A.first, A.rest);
+        if (B == null){
+            return A;
+        }
+        if (A == null){
+            return B;
+        }
+            IntList res = new IntList(A.first, A.rest);
+            IntList ptr = res;
             A = A.rest;
-            ptr = ptr.rest;
+            while (A != null) {
+                ptr.rest = new IntList(A.first, A.rest);
+                A = A.rest;
+                ptr = ptr.rest;
+            }
+            while (A == null) {
+                if (B == null){
+                    break;
+                }
+                ptr.rest = new IntList(B.first, B.rest);
+                B = B.rest;
+                ptr = ptr.rest;
+            }
+            return res;
         }
-        while(A == null){
-            ptr.rest = new IntList(B.first, B.rest);
-            B = B.rest;
-            ptr = ptr.rest;
-        }
-        return res;
-    }
 
 
 
