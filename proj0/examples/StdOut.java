@@ -21,7 +21,8 @@ import java.util.Locale;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public final class StdOut {
+
+ public final class StdOut {
 
     // force Unicode UTF-8 encoding; otherwise it's system dependent
     private static final String CHARSET_NAME = "UTF-8";
@@ -229,3 +230,4 @@ public final class StdOut {
     }
 
 }
+
