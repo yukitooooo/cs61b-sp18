@@ -52,10 +52,7 @@ public class ArrayDeque<T> {
     }
 
     public boolean isEmpty() {
-        if (!size()) {
-            return true;
-        } 
-        return false;
+        return size == 0;
         
 
         //如果 deque 为空，则返回 true，否则返回 false
@@ -122,7 +119,7 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        if(index < 0 || index >= items.length) {
+        if (index < 0 || index >= items.length) {
             return null;
         } else {
             return items[index];

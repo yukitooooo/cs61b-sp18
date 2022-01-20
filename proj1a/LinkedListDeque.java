@@ -59,10 +59,7 @@ public class LinkedListDeque<T> {
 
     public boolean isEmpty() {
         //如果 deque 为空，则返回 true，否则返回 false
-        if (!size()) {
-            return true;
-        } 
-        return false;
+        return size == 0;
     }
 
     public int size() {
@@ -145,7 +142,7 @@ public class LinkedListDeque<T> {
         this.sentinel = p;
         p.prev = p;
         p.next = p;
-        this.size = 1;
+        this.size = 0;
         //创建一个空的链表双端队列。
 
     }
@@ -174,7 +171,7 @@ public class LinkedListDeque<T> {
         if (index == 0) {
             return node.item;
         } else {
-            T t = findIndex(index - 1,node.next);
+            T t = findIndex(index - 1, node.next);
             return t;
         }
 
