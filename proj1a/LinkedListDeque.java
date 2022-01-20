@@ -21,40 +21,19 @@ public class LinkedListDeque<T> {
     public void addFirst(T item) {
         //在双端队列的前面添加一个类型的项目
         //操作不得涉及任何循环或递归
-        StuffNode p = new StuffNode(null, item, null);
-        if (!isEmpty()) {
-
-            p.prev = sentinel.prev;
-            sentinel.prev.next = p;
-            p.next = sentinel;
-            sentinel.prev = p;
-            sentinel = p;
-            size++;
-        } else {
-            sentinel = p;
-            p.prev = p;
-            p.next = p;
-            size++;
-
-        }
+        StuffNode p = new StuffNode(sentinel.next, item, sentinel);
+        sentinel.prev.next = p;
+        sentinel.prev = p;
+        sentinel = p;
+        size++;
     }
 
     public void addLast(T item) {
         //T在双端队列的后面添加一个类型的项目
-        StuffNode p = new StuffNode(null, item, null);
-        if (!isEmpty()) {
-            sentinel.prev.next = p;
-            p.prev = sentinel.prev;
-            p.next = sentinel;
-            sentinel.prev = p;
-            size++;
-        } else {
-            sentinel = p;
-            p.prev = p;
-            p.next = p;
-            size++;
-        }
-
+        StuffNode p = new StuffNode(sentinel.prev, item, sentinel);
+        sentinel.prev.next = p;
+        sentinel.prev = p;
+        size++;
     }
 
     public boolean isEmpty() {
