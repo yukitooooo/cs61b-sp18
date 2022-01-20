@@ -18,8 +18,8 @@ public class ArrayDeque<T> {
         }
         nextFirst = (nextFirst - 1) & (items.length - 1);
         items[nextFirst] = item;
-        size++ ;
-        if (nextFirst == nextLast){
+        size++;
+        if (nextFirst == nextLast) {
             reSize(size * 2);
         }
     }
@@ -30,7 +30,7 @@ public class ArrayDeque<T> {
         items[nextLast] = item;
         nextLast = (nextLast + 1) & (items.length + 1);
         size++;
-        if(nextLast == nextFirst) {
+        if (nextLast == nextFirst) {
             reSize(size * 2);
         }
 
@@ -52,11 +52,11 @@ public class ArrayDeque<T> {
     }
 
     public boolean isEmpty() {
-        if (this.size == 0) {
+        if (!size()) {
             return true;
-        } else {
-            return false;
-        }
+        } 
+        return false;
+        
 
         //如果 deque 为空，则返回 true，否则返回 false
     }
@@ -67,7 +67,7 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             System.out.print(items[i] + " ");
         }
 
@@ -124,12 +124,12 @@ public class ArrayDeque<T> {
     public T get(int index) {
         if(index < 0 || index >= items.length) {
             return null;
-        } else return items[index];
-
+        } else {
+            return items[index];
+        }
         //获取给定索引处的项目
         // 其中 0 是前面，1 是下一个项目，依此类推。
         // 如果不存在这样的项目，则返回 null。不能改变双端队列！
-
     }
 
 }

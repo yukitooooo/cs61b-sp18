@@ -1,12 +1,12 @@
 
 public class LinkedListDeque<T> {
 
-    public class StuffNode {
-        public T item;
-        public StuffNode prev;
-        public StuffNode next;
+    private class StuffNode {
+        private T item;
+        private StuffNode prev;
+        private StuffNode next;
 
-        public StuffNode(StuffNode prev, T item, StuffNode next) {
+        private StuffNode(StuffNode prev, T item, StuffNode next) {
             this.item = item;
             this.prev = prev;
             this.next = next;
@@ -14,8 +14,8 @@ public class LinkedListDeque<T> {
 
     }
 
-    public StuffNode sentinel;
-    public int size;
+    private StuffNode sentinel;
+    private int size;
 
 
     public void addFirst(T item) {
@@ -59,11 +59,10 @@ public class LinkedListDeque<T> {
 
     public boolean isEmpty() {
         //如果 deque 为空，则返回 true，否则返回 false
-        if (size == 0) {
+        if (!size()) {
             return true;
-        } else {
-            return false;
-        }
+        } 
+        return false;
     }
 
     public int size() {
@@ -106,7 +105,7 @@ public class LinkedListDeque<T> {
     }
 
     public T removeLast() {
-        if ( this.size == 0 ||  this.size == 1) {
+        if (this.size == 0 ||  this.size == 1) {
             this.sentinel = null;
             this.size = 0;
             return null;
@@ -142,11 +141,16 @@ public class LinkedListDeque<T> {
     }
 
     public LinkedListDeque() {
+        StuffNode p = new StuffNode(null, null, null);
+        this.sentinel = p;
+        p.prev = p;
+        p.next = p;
+        this.size = 1;
         //创建一个空的链表双端队列。
 
     }
 
-    public LinkedListDeque(T item) {
+/*    public LinkedListDeque(T item) {
 
         StuffNode p = new StuffNode(null, item, null);
         this.sentinel = p;
@@ -155,6 +159,8 @@ public class LinkedListDeque<T> {
         this.size = 1;
 
     }
+
+    */
 
     public T getRecursive(int index) {
         return findIndex(index, this.sentinel);
