@@ -1,7 +1,7 @@
 
 public class LinkedListDeque<T> {
 
-    private class StuffNode {
+    public class StuffNode {
         public T item;
         public StuffNode prev;
         public StuffNode next;
@@ -14,24 +14,23 @@ public class LinkedListDeque<T> {
 
     }
 
-    private StuffNode sentinel;
-    private int size;
+    public StuffNode sentinel;
+    public int size;
 
 
     public void addFirst(T item) {
         //在双端队列的前面添加一个类型的项目
         //操作不得涉及任何循环或递归
         StuffNode p = new StuffNode(null, item, null);
-        if (!isEmpty() ) {
+        if (!isEmpty()) {
 
             p.prev = sentinel.prev;
             sentinel.prev.next = p;
             p.next = sentinel;
             sentinel.prev = p;
             sentinel = p;
-            size ++;
-        }
-        else {
+            size++;
+        } else {
             sentinel = p;
             p.prev = p;
             p.next = p;
@@ -49,8 +48,7 @@ public class LinkedListDeque<T> {
             p.next = sentinel;
             sentinel.prev = p;
             size++;
-        }
-        else {
+        } else {
             sentinel = p;
             p.prev = p;
             p.next = p;
@@ -63,7 +61,9 @@ public class LinkedListDeque<T> {
         //如果 deque 为空，则返回 true，否则返回 false
         if (size == 0) {
             return true;
-        } else return false;
+        } else {
+            return false;
+        }
     }
 
     public int size() {
@@ -90,7 +90,7 @@ public class LinkedListDeque<T> {
 
 
     public T removeFirst() {
-        if ( this.size == 0 ||  this.size == 1) {
+        if (this.size == 0 ||  this.size == 1) {
             sentinel = null;
             this.size = 0;
             return null;
@@ -157,11 +157,11 @@ public class LinkedListDeque<T> {
     }
 
     public T getRecursive(int index) {
-        return findIndex(index,this.sentinel);
+        return findIndex(index, this.sentinel);
 
     }
 
-    public T findIndex(int index, StuffNode node){
+    private T findIndex(int index, StuffNode node) {
         if (index > this.size || index < 0) {
             return null;
         }
@@ -171,12 +171,6 @@ public class LinkedListDeque<T> {
             T t = findIndex(index - 1,node.next);
             return t;
         }
-
-    }
-
-
-     public static void main(String[] args) {
-
 
     }
 
