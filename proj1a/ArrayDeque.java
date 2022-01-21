@@ -21,9 +21,10 @@ public class ArrayDeque<T> {
         items[nextFirst] = item;
         size++;
         if (nextFirst == nextLast) {
-            reSize(size * 1.5);
+            reSize();
         }
     }
+
     public void addLast(T item) {
         if (item == null) {
             throw new NullPointerException();
@@ -32,24 +33,27 @@ public class ArrayDeque<T> {
         nextLast = (nextLast + 1) & (items.length - 1);
         size++;
         if (nextLast == nextFirst) {
-            reSize(size * 2);
+            reSize();
         }
 
         //在双端队列的后面添加一个类型的项目
     }
 
 
-    private void reSize(int x) {
+    private void reSize() {
         int p = nextFirst;
         int n = size;
         int r = n - p;
-        T[] a = (T[]) new Object[x];
+        int newCapacity = n << 1;
+        if (newCapacity < 0) {
+            throw new IllegalStateException("Sorry, its too big!");
+        }
+        T[] a = (T[]) new Object[newCapacity];
         System.arraycopy(items, p, a, 0, r);
         System.arraycopy(items, 0, a, r, p);
         items = a;
         nextFirst = 0;
         nextLast = n;
-
     }
 
     public boolean isEmpty() {
