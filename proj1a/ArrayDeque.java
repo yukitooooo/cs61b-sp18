@@ -21,7 +21,7 @@ public class ArrayDeque<T> {
         items[nextFirst] = item;
         size++;
         if (nextFirst == nextLast) {
-            reSize();
+            reSize(size * 2);
         }
     }
 
@@ -33,22 +33,18 @@ public class ArrayDeque<T> {
         nextLast = (nextLast + 1) & (items.length - 1);
         size++;
         if (nextLast == nextFirst) {
-            reSize();
+            reSize(size * 2);
         }
 
         //在双端队列的后面添加一个类型的项目
     }
 
 
-    private void reSize() {
+    private void reSize(int x) {
         int p = nextFirst;
         int n = size;
         int r = n - p;
-        int newCapacity = n << 1;
-        if (newCapacity < 0) {
-            throw new IllegalStateException("Sorry, its too big!");
-        }
-        T[] a = (T[]) new Object[newCapacity];
+        T[] a = (T[]) new Object[x];
         System.arraycopy(items, p, a, 0, r);
         System.arraycopy(items, 0, a, r, p);
         items = a;
@@ -58,9 +54,11 @@ public class ArrayDeque<T> {
 
     public boolean isEmpty() {
         return size == 0;
-        
-
         //如果 deque 为空，则返回 true，否则返回 false
+    }
+
+    private boolean isLarage() {
+        return items.length >= 16 && size() / (double) items.length < 0.25;
     }
 
     public int size() {
@@ -89,6 +87,9 @@ public class ArrayDeque<T> {
         if (t == null) {
             return null;
         }
+        if (isLarage()) {
+            reSize(size / 2);
+        }
         size--;
         return t;
 
@@ -114,6 +115,9 @@ public class ArrayDeque<T> {
         if (t == null) {
             return null;
         } else {
+            if (isLarage()) {
+                reSize(size / 2);
+            }
             size--;
             return t;
         }
