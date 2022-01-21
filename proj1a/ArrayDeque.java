@@ -21,7 +21,7 @@ public class ArrayDeque<T> {
         items[nextFirst] = item;
         size++;
         if (nextFirst == nextLast) {
-            reSize(size * 2);
+            reSize(size * 1.5);
         }
     }
     public void addLast(T item) {
