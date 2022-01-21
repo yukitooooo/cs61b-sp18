@@ -15,7 +15,7 @@ public class LinkedListDequeTest {
         if (expected != actual) {
             System.out.println("size() returned " + actual + ", but expected: " + expected);
             return false;
-		}
+        }
         return true;
     }
 

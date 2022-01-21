@@ -3,7 +3,7 @@ public class ArrayDeque<T> {
     private T[] items;
     private int nextFirst;
     private int nextLast;
-    private int capacity = 4;
+    private int capacity = 8;
 
     public ArrayDeque() {
         items = (T[]) new Object[capacity];
