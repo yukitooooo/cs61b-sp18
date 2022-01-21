@@ -125,8 +125,7 @@ public class ArrayDeque<T> {
         }
         if (nextFirst < nextLast) {
             return items[index + nextFirst];
-        }
-        else if (nextFirst > nextLast) {
+        } else if (nextFirst > nextLast) {
             if (nextFirst + index < items.length) {
                 return items[nextFirst + index];
             } else {
@@ -137,22 +136,6 @@ public class ArrayDeque<T> {
         //获取给定索引处的项目
         // 其中 0 是前面，1 是下一个项目，依此类推。
         // 如果不存在这样的项目，则返回 null。不能改变双端队列！
-    }
-
-    public static void main(String[] args){
-        ArrayDeque<Integer> p = new ArrayDeque<>();
-        p.addLast(5);
-        p.addLast(4);
-        p.addLast(3);
-        p.addLast(2);
-        p.addFirst(1);
-        p.addFirst(0);
-        System.out.println(p.get(1));
-        System.out.println(p.get(2));
-        System.out.println(p.get(3));
-        System.out.println(p.get(4));
-        System.out.println(p.get(5));
-
     }
 
 }
