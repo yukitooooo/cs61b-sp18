@@ -6,7 +6,7 @@ public class LinkedListDequeTest {
         if (expected != actual) {
             System.out.println("isEmpty() returned " + actual + ", but expected: " + expected);
             return false;
-		}
+        }
         return true;
     }
 

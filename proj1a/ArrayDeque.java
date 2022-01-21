@@ -3,7 +3,7 @@ public class ArrayDeque<T> {
     private T[] items;
     private int nextFirst;
     private int nextLast;
-    private int capacity = 8;
+    private int capacity = 4;
 
     public ArrayDeque() {
         items = (T[]) new Object[capacity];
@@ -29,7 +29,7 @@ public class ArrayDeque<T> {
             throw new NullPointerException();
         }
         items[nextLast] = item;
-        nextLast = (nextLast + 1) & (items.length + 1);
+        nextLast = (nextLast + 1) & (items.length - 1);
         size++;
         if (nextLast == nextFirst) {
             reSize(size * 2);
@@ -120,14 +120,39 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        if (index < 0 || index >= items.length) {
+        if (index < 0 || index >= size() || isEmpty()) {
             return null;
-        } else {
-            return items[index];
         }
+        if (nextFirst < nextLast) {
+            return items[index + nextFirst];
+        }
+        else if (nextFirst > nextLast) {
+            if (nextFirst + index < items.length) {
+                return items[nextFirst + index];
+            } else {
+                return items[(nextFirst + index) % items.length];
+            }
+        }
+        return null;
         //获取给定索引处的项目
         // 其中 0 是前面，1 是下一个项目，依此类推。
         // 如果不存在这样的项目，则返回 null。不能改变双端队列！
+    }
+
+    public static void main(String[] args){
+        ArrayDeque<Integer> p = new ArrayDeque<>();
+        p.addLast(5);
+        p.addLast(4);
+        p.addLast(3);
+        p.addLast(2);
+        p.addFirst(1);
+        p.addFirst(0);
+        System.out.println(p.get(1));
+        System.out.println(p.get(2));
+        System.out.println(p.get(3));
+        System.out.println(p.get(4));
+        System.out.println(p.get(5));
+
     }
 
 }
