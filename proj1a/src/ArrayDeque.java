@@ -65,10 +65,18 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        for (int i = 0; i < size; i++) {
-            System.out.print(items[i] + " ");
+        if (nextFirst < nextLast) {
+            for (int i = nextFirst; i < nextLast; i++) {
+                System.out.print(items[i] + " ");
+            }
+        } else if (nextFirst > nextLast) {
+            for (int i = nextFirst; i < items.length; i++) {
+                System.out.print(items[i] + " ");
+            }
+            for (int j = 0; j <= nextLast - 1; j++) {
+                System.out.print(items[j] + " ");
+            }
         }
-
         //从头到尾打印双端队列中的项目，用空格分隔。
     }
 
@@ -77,6 +85,7 @@ public class ArrayDeque<T> {
         if (t == null) {
             return null;
         }
+        size--;
         return t;
 
         //删除并返回双端队列前面的项目。如果不存在这样的项目，则返回 null。
@@ -101,6 +110,7 @@ public class ArrayDeque<T> {
         if (t == null) {
             return null;
         } else {
+            size--;
             return t;
         }
 
