@@ -21,10 +21,9 @@ public class LinkedListDeque<T> {
     public void addFirst(T item) {
         //在双端队列的前面添加一个类型的项目
         //操作不得涉及任何循环或递归
-        StuffNode p = new StuffNode(sentinel.next, item, sentinel);
-        sentinel.prev.next = p;
-        sentinel.prev = p;
-        sentinel = p;
+        StuffNode p = new StuffNode(sentinel, item, sentinel.next);
+        sentinel.next.prev = p;
+        sentinel.next = p;
         size++;
     }
 
@@ -48,7 +47,7 @@ public class LinkedListDeque<T> {
     }
 
     public void printDeque() {
-        StuffNode L = sentinel;
+        StuffNode L = sentinel.next;
         int theSize = size();
         if (theSize == 0) {
             System.out.print("This is an empty LinkList!");
@@ -65,39 +64,27 @@ public class LinkedListDeque<T> {
 
 
     public T removeFirst() {
-        if (this.size == 0 ||  this.size == 1) {
-            sentinel = null;
-            this.size = 0;
+        if (isEmpty()) {
             return null;
-        } else {
-            sentinel.next.prev = sentinel.prev;
-            sentinel.prev.next = sentinel.next;
-            sentinel = sentinel.next;
-            this.size--;
-            return sentinel.item;
-
         }
+        T res = sentinel.next.item;
+        sentinel.next = sentinel.next.next;
+        sentinel.next.prev = sentinel;
+        size--;
+        return res;
+        
         //删除并返回双端队列前面的项目。如果不存在这样的项目，则返回 null。
     }
 
     public T removeLast() {
-        if (this.size == 0 ||  this.size == 1) {
-            this.sentinel = null;
-            this.size = 0;
+        if (isEmpty()) {
             return null;
-        } else if (size == 2) {
-            this.size--;
-            sentinel.prev = null;
-            sentinel.next = null;
-            return sentinel.item;
-        } else {
-            sentinel.prev = sentinel.prev.prev;
-            sentinel.prev.next = sentinel;
-            this.size--;
-            return sentinel.prev.item;
         }
-        //删除并返回双端队列后面的项目。如果不存在这样的项目，则返回 null
-
+        T res = sentinel.prev.item;
+        sentinel.prev = sentinel.prev.prev;
+        sentinel.prev.next = sentinel;
+        size--;
+        return res;
     }
 
     public T get(int index) {
@@ -105,7 +92,7 @@ public class LinkedListDeque<T> {
         if (index > this.size || index < 0) {
             return null;
         } else {
-            for (int i = 0; i <= this.size; i++) {
+            for (int i = 0; i <= index; i++) {
                 L = L.next;
             }
             return L.item;
@@ -117,7 +104,7 @@ public class LinkedListDeque<T> {
     }
 
     public LinkedListDeque() {
-        StuffNode p = new StuffNode(null, null, null);
+        StuffNode p = new StuffNode(null, (T) new Object(), null);
         this.sentinel = p;
         p.prev = p;
         p.next = p;
@@ -139,7 +126,7 @@ public class LinkedListDeque<T> {
     */
 
     public T getRecursive(int index) {
-        return findIndex(index, this.sentinel);
+        return findIndex(index, sentinel.next);
 
     }
 
@@ -155,5 +142,20 @@ public class LinkedListDeque<T> {
         }
 
     }
+
+//    public static void main(String[] args) {
+//        LinkedListDeque<Integer> p = new LinkedListDeque<>();
+//        p.addFirst(1);
+//        p.addFirst(2);
+//        p.addFirst(3);
+//        p.addLast(4);
+//        p.addLast(5);
+//        p.addLast(6);
+//        p.printDeque();
+//        System.out.println("when index = 5, the item is " + p.get(5));
+//        System.out.println("when index = 5, the item is " + p.getRecursive(5));
+//        p.removeLast();
+//
+//    }
 
 }
