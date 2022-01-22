@@ -168,4 +168,17 @@ public class ArrayDeque<T> {
         // 其中 0 是前面，1 是下一个项目，依此类推。
         // 如果不存在这样的项目，则返回 null。不能改变双端队列！
     }
+//    public static void main(String[] args) {
+//        ArrayDeque<Integer> p = new ArrayDeque<>();
+//        for (int i = 0; i <= 8; i++) {
+//            p.addLast(i);
+//        }
+//        for (int i = 0; i <= 0; i++) {
+//            p.removeFirst();
+//        }
+//        System.out.print(p.removeLast());
+//        p.printDeque();
+//
+//
+//    }
 }
