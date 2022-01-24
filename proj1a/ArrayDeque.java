@@ -197,15 +197,18 @@ public class ArrayDeque<T> {
     }
 
     private boolean isLowCap() {
-        return size() >= 8 && (size() / (double) items.length) < 0.5;
+        return size() > 8 && (size() / (double) items.length) < 0.5;
 
     }
 //    public static void main(String[] args) {
 //        ArrayDeque<Integer> p = new ArrayDeque<>();
-//        for (int i = 0; i <= 8; i++) {
+//        for (int i = 0; i <= 4; i++) {
 //            p.addFirst(i);
 //        }
-//        for (int i = 0; i <= 4; i++) {
+//        for (int i = 5; i <= 8; i++) {
+//            p.addLast(i);
+//        }
+//        for (int i = 5; i <= 8; i++) {
 //            p.removeLast();
 //        }
 //        System.out.println(p.removeLast());
