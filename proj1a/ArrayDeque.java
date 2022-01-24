@@ -57,14 +57,23 @@ public class ArrayDeque<T> {
 
     private void reduceSize(int x) {
         int p = nextFirst;
+        int q = nextLast;
         int n = size;
-        int r = n - p;
-        T[] a = (T[]) new Object[x];
-        System.arraycopy(items, p, a, 0, r);
-        System.arraycopy(items, n, a, r, p);
-        items = a;
-        nextFirst = 0;
-        nextLast = n;
+        if (nextFirst > nextLast) {
+            T[] a = (T[]) new Object[x];
+            System.arraycopy(items, 0, a, 0, n);
+            System.arraycopy(items, p, a, q, 1);
+            items = a;
+            nextFirst = nextLast = size;
+        } else {
+            int r = n - p;
+            T[] a = (T[]) new Object[x];
+            System.arraycopy(items, p, a, 0, r);
+            System.arraycopy(items, n, a, r, p);
+            items = a;
+            nextFirst = 0;
+            nextLast = n;
+        }
     }
 
 
@@ -101,7 +110,7 @@ public class ArrayDeque<T> {
                 System.out.print(items[i] + " ");
             }
         } else if (nextFirst > nextLast) {
-            for (int i = nextFirst; i < size(); i++) {
+            for (int i = nextFirst; i < items.length; i++) {
                 System.out.print(items[i] + " ");
             }
             for (int j = 0; j <= nextLast - 1; j++) {
@@ -188,20 +197,20 @@ public class ArrayDeque<T> {
     }
 
     private boolean isLowCap() {
-        return size() >= 8 && (size() / (double)items.length) <= 0.5;
+        return size() >= 8 && (size() / (double) items.length) < 0.5;
 
     }
-    public static void main(String[] args) {
-        ArrayDeque<Integer> p = new ArrayDeque<>();
-        for (int i = 0; i <= 8; i++) {
-            p.addLast(i);
-        }
-        for (int i = 0; i <= 2; i++) {
-            p.removeLast();
-        }
+//    public static void main(String[] args) {
+//        ArrayDeque<Integer> p = new ArrayDeque<>();
+//        for (int i = 0; i <= 8; i++) {
+//            p.addFirst(i);
+//        }
+//        for (int i = 0; i <= 4; i++) {
+//            p.removeLast();
+//        }
 //        System.out.println(p.removeLast());
-        p.printDeque();
-
-
-    }
+//        p.printDeque();
+//
+//
+//    }
 }
