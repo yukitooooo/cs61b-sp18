@@ -3,9 +3,10 @@ public class ArrayDeque<T> {
     private T[] items;
     private int nextFirst;
     private int nextLast;
-    private int capacity = 8;
+    private int capacity;
 
     public ArrayDeque() {
+        capacity = 8;
         items = (T[]) new Object[capacity];
         size = 0;
         nextFirst = 0;
@@ -22,7 +23,7 @@ public class ArrayDeque<T> {
         size++;
         if (nextFirst == nextLast) {
             int p = calculatesize(size);
-            reSize(p);
+            doubleSize(p);
         }
     }
 
@@ -35,14 +36,14 @@ public class ArrayDeque<T> {
         size++;
         if (nextLast == nextFirst) {
             int p = calculatesize(size);
-            reSize(p);
+            doubleSize(p);
         }
 
         //在双端队列的后面添加一个类型的项目
     }
 
 
-    private void reSize(int x) {
+    private void doubleSize(int x) {
         int p = nextFirst;
         int n = size;
         int r = n - p;
@@ -53,6 +54,19 @@ public class ArrayDeque<T> {
         nextFirst = 0;
         nextLast = n;
     }
+
+    private void reduceSize(int x) {
+        int p = nextFirst;
+        int n = size;
+        int r = n - p;
+        T[] a = (T[]) new Object[x];
+        System.arraycopy(items, p, a, 0, r);
+        System.arraycopy(items, n, a, r, p);
+        items = a;
+        nextFirst = 0;
+        nextLast = n;
+    }
+
 
     private static int calculatesize(int num) {
         int initialCapacity = 8;
@@ -87,7 +101,7 @@ public class ArrayDeque<T> {
                 System.out.print(items[i] + " ");
             }
         } else if (nextFirst > nextLast) {
-            for (int i = nextFirst; i < items.length; i++) {
+            for (int i = nextFirst; i < size(); i++) {
                 System.out.print(items[i] + " ");
             }
             for (int j = 0; j <= nextLast - 1; j++) {
@@ -103,8 +117,10 @@ public class ArrayDeque<T> {
             return null;
         }
         size--;
-        int p = calculatesize(size);
-        reSize(p);
+        if (isLowCap()) {
+            int p = calculatesize(size);
+            reduceSize(p);
+        }
         return t;
 
         //删除并返回双端队列前面的项目。如果不存在这样的项目，则返回 null。
@@ -118,7 +134,7 @@ public class ArrayDeque<T> {
             return null;
         } else {
             items[p] = null;
-            nextFirst = (nextFirst + 1) & (items.length - 1);
+            nextFirst = (p + 1) & (items.length - 1);
             return t;
         }
 
@@ -130,8 +146,10 @@ public class ArrayDeque<T> {
             return null;
         } else {
             size--;
-            int p = calculatesize(size);
-            reSize(p);
+            if (isLowCap()) {
+                int p = calculatesize(size);
+                reduceSize(p);
+            }
             return t;
         }
 
@@ -168,17 +186,22 @@ public class ArrayDeque<T> {
         // 其中 0 是前面，1 是下一个项目，依此类推。
         // 如果不存在这样的项目，则返回 null。不能改变双端队列！
     }
-//    public static void main(String[] args) {
-//        ArrayDeque<Integer> p = new ArrayDeque<>();
-//        for (int i = 0; i <= 8; i++) {
-//            p.addLast(i);
-//        }
-//        for (int i = 0; i <= 0; i++) {
-//            p.removeFirst();
-//        }
-//        System.out.print(p.removeLast());
-//        p.printDeque();
-//
-//
-//    }
+
+    private boolean isLowCap() {
+        return size() >= 8 && (size() / (double)items.length) <= 0.5;
+
+    }
+    public static void main(String[] args) {
+        ArrayDeque<Integer> p = new ArrayDeque<>();
+        for (int i = 0; i <= 8; i++) {
+            p.addLast(i);
+        }
+        for (int i = 0; i <= 2; i++) {
+            p.removeLast();
+        }
+//        System.out.println(p.removeLast());
+        p.printDeque();
+
+
+    }
 }
