@@ -199,20 +199,4 @@ public class ArrayDeque<T> {
         return size() > 8 && (size() / (double) items.length) < 0.5;
 
     }
-//    public static void main(String[] args) {
-//        ArrayDeque<Integer> p = new ArrayDeque<>();
-//        for (int i = 0; i <= 33; i++) {
-//            p.addFirst(i);
-//        }
-//        for (int i = 0; i <= 33; i++) {
-//            p.removeFirst();
-//        }
-//        for (int i = 0; i <= 33; i++) {
-//            p.addFirst(i);
-//        }
-//        System.out.println(p.removeLast());
-//        p.printDeque();
-//
-//
-//    }
 }
