@@ -56,24 +56,23 @@ public class ArrayDeque<T> {
     }
 
     private void reduceSize(int x) {
-        int p = nextFirst;
-        int q = nextLast;
-        int n = size;
-        if (nextFirst > nextLast) {
-            T[] a = (T[]) new Object[x];
-            System.arraycopy(items, 0, a, 0, n);
-            System.arraycopy(items, p, a, q, 1);
-            items = a;
-            nextFirst = nextLast = size;
-        } else {
-            int r = n - p;
-            T[] a = (T[]) new Object[x];
-            System.arraycopy(items, p, a, 0, r);
-            System.arraycopy(items, n, a, r, p);
-            items = a;
-            nextFirst = 0;
-            nextLast = n;
+        T[] a = (T[]) new Object[x];
+        if (nextFirst < nextLast) {
+            for (int i = nextFirst, j = 0; i < nextLast && j < size; i++, j++) {
+                a[j] = items[i];
+            }
+        } else if (nextFirst > nextLast) {
+            int j = 0;
+            for (int i = nextLast; j < items.length - nextLast; i++, j++) {
+                a[j] = items[i];
+            }
+            for (int i = 0; j < size; i++, j++) {
+                a[j] = items[i];
+            }
         }
+        nextLast = size;
+        nextFirst = 0;
+        items = a;
     }
 
 
@@ -202,14 +201,14 @@ public class ArrayDeque<T> {
     }
 //    public static void main(String[] args) {
 //        ArrayDeque<Integer> p = new ArrayDeque<>();
-//        for (int i = 0; i <= 4; i++) {
+//        for (int i = 0; i <= 33; i++) {
 //            p.addFirst(i);
 //        }
-//        for (int i = 5; i <= 8; i++) {
-//            p.addLast(i);
+//        for (int i = 0; i <= 33; i++) {
+//            p.removeFirst();
 //        }
-//        for (int i = 5; i <= 8; i++) {
-//            p.removeLast();
+//        for (int i = 0; i <= 33; i++) {
+//            p.addFirst(i);
 //        }
 //        System.out.println(p.removeLast());
 //        p.printDeque();
