@@ -36,6 +36,7 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome("acab", cc));
         assertFalse(palindrome.isPalindrome("noon", cc));
         assertFalse(palindrome.isPalindrome("racecar", cc));
+        assertTrue(palindrome.isPalindrome("%AacbB&", cc));
     }
         //Uncomment this class once you've created your Palindrome class.
 
