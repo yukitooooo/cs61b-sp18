@@ -38,6 +38,18 @@ public class TestPalindrome {
         assertFalse(palindrome.isPalindrome("racecar", cc));
         assertTrue(palindrome.isPalindrome("%AacbB&", cc));
     }
+
+    @Test
+    public void testOffByN() {
+        CharacterComparator cc = new OffByN(5);
+        assertTrue(palindrome.isPalindrome("afaf", cc));
+        assertTrue(palindrome.isPalindrome("", cc));
+        assertTrue(palindrome.isPalindrome("a", cc));
+        assertTrue(palindrome.isPalindrome("bing", cc));
+        assertFalse(palindrome.isPalindrome("noon", cc));
+        assertFalse(palindrome.isPalindrome("%AacbB&", cc));
+
+    }
         //Uncomment this class once you've created your Palindrome class.
 
 
