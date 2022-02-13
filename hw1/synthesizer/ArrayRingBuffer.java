@@ -65,7 +65,11 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      * Return oldest item, but don't remove it.
      */
     public T peek() {
-        return rb[first];
+        if (isEmpty()) {
+            throw new RuntimeException("Ring buffer underflow");
+        } else {
+            return rb[first];
+        }
     }
 
     public Iterator<T> iterator() {
@@ -73,11 +77,15 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     }
 
     private class ARBIterator implements Iterator<T> {
-        private int wizPos = first;
+        private int wizPos;
+
+        ARBIterator() {
+            wizPos = first;
+        }
 
         @Override
         public boolean hasNext() {
-            return (!isEmpty() || wizPos != last);
+            return (!isEmpty() && wizPos != last);
         }
 
         @Override

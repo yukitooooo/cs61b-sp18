@@ -1,5 +1,9 @@
 package synthesizer;
 import org.junit.Test;
+
+import java.util.Iterator;
+import java.util.Optional;
+
 import static org.junit.Assert.*;
 
 /** Tests the ArrayRingBuffer class.
@@ -44,8 +48,39 @@ public class TestArrayRingBuffer {
         assertEquals(0, arb.dequeue());
     }
 
+    @Test
+    public void testIterator() {
+        ArrayRingBuffer arb = new ArrayRingBuffer(5);
+        arb.enqueue(0);
+        arb.enqueue(1);
+        arb.enqueue(2);
+        arb.enqueue(3);
+        arb.dequeue();
+        arb.dequeue();
+        arb.dequeue();
+        arb.enqueue(4);
+        arb.enqueue(0);
+        arb.enqueue(1);
+        Iterator<Integer> iter = arb.iterator();
+        while(iter.hasNext()) {
+            System.out.println(iter.next());
+        }
+
+
+    }
+
+    @Test(expected = Exception.class)
+    public void testPeek() {
+        ArrayRingBuffer arb = new ArrayRingBuffer(5);
+        arb.peek();
+        arb.enqueue(5);
+        assertEquals(5, arb.peek());
+    }
+
+
     /** Calls tests for ArrayRingBuffer. */
     public static void main(String[] args) {
         jh61b.junit.textui.runClasses(TestArrayRingBuffer.class);
     }
-} 
+
+}
